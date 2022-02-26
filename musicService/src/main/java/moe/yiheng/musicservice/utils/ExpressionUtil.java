@@ -8,6 +8,7 @@ import moe.yiheng.musicservice.vo.Range;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author rinne
@@ -39,16 +40,37 @@ public class ExpressionUtil {
         if (conditions.getGenre() != null) {
             expression = expression.and(music.genre.equalsIgnoreCase(conditions.getGenre()));
         }
+        Range<Double> dsRange = null;
         if (conditions.getLevel() != null) {
-            Range<Double> range = levelToDs(conditions.getLevel());
-            BooleanExpression dsExpression = getDsExpression(range, music);
+            dsRange = levelToDs(conditions.getLevel());
+            BooleanExpression dsExpression = getDsExpression(dsRange, music);
             expression = expression.and(dsExpression);
         }
         if (conditions.getInnerLevel() != null) {
-            BooleanExpression dsExpression = getDsExpression(conditions.getInnerLevel(), music);
+            dsRange = conditions.getInnerLevel();
+            BooleanExpression dsExpression = getDsExpression(dsRange, music);
             expression = expression.and(dsExpression);
         }
-        // TODO alias
+        if (conditions.getDifficulty() != null) {
+            if (dsRange == null) {
+                // 如果没有定数条件
+                // 则只有Re:Mas需要添加条件
+                if (StringUtils.equalsIgnoreCase(conditions.getDifficulty(), "Remaster")) {
+                    expression = expression.and(music.innerLevel.remaster.isNotNull());
+                }
+            } else {
+                // 添加对应定数条件
+                var difficultyMap = Map.of(
+                        "Basic", music.innerLevel.basic,
+                        "Advanced", music.innerLevel.advanced,
+                        "Expert", music.innerLevel.expert,
+                        "Master", music.innerLevel.master,
+                        "Remaster", music.innerLevel.remaster
+                );
+                BooleanExpression expression1 = difficultyMap.get(conditions.getDifficulty()).between(dsRange.getFrom(), dsRange.getTo());
+                expression = expression.and(expression1);
+            }
+        }
         return expression;
     }
 

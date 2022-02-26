@@ -19,5 +19,5 @@ public class QueryConditions {
     private Range<Double> innerLevel;
     private Range<String> level;
 
-    private String alias;
+    private String difficulty;
 }

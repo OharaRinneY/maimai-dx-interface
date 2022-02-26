@@ -8,6 +8,7 @@ import moe.yiheng.entity.music.Music;
 import moe.yiheng.musicservice.service.MusicService;
 import moe.yiheng.musicservice.vo.QueryConditions;
 import moe.yiheng.servicebase.Payload;
+import moe.yiheng.servicebase.exceptionhandler.MyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,7 @@ public class MusicController {
     @Autowired
     MusicService musicService;
 
+    @ApiOperation("从指定url获取乐曲列表")
     @PostMapping("refresh")
     public Payload refresh(String url) {
         // "https://maimai.ohara-rinne.tech/api/maimaidxprober/music_data"
@@ -47,6 +49,9 @@ public class MusicController {
             @ApiParam(value = "页面", required = true) @PathVariable("page") Integer page,
             @ApiParam(value = "每页数量", required = true) @PathVariable("size") Integer size
     ) {
+        if (size > 20) {
+            throw new MyException(400, "最大单页数量为20");
+        }
         var resultPage = musicService.query(conditions, page, size);
         return Payload.success()
                 .data("total", resultPage.getTotalElements())
