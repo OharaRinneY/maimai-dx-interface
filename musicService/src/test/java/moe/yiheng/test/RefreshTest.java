@@ -7,7 +7,9 @@ import moe.yiheng.musicservice.MusicServiceApplication;
 import moe.yiheng.musicservice.jsonEntities.RawMusicData;
 import moe.yiheng.musicservice.repository.MusicRepository;
 import moe.yiheng.musicservice.service.MusicService;
+import moe.yiheng.musicservice.utils.ExpressionUtil;
 import moe.yiheng.musicservice.utils.MusicConverter;
+import moe.yiheng.musicservice.vo.Range;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,5 +44,11 @@ public class RefreshTest {
     @Test
     public void testService() {
 //        musicService.refresh("https://maimai.ohara-rinne.tech/api/maimaidxprober/music_data");
+    }
+
+    @Test
+    public void testLevelToDs() {
+        Range<String> range = new Range<>("7+", "14");
+        System.out.println(ExpressionUtil.levelToDs(range));
     }
 }

@@ -1,6 +1,7 @@
 package moe.yiheng.musicservice.repository;
 
 import moe.yiheng.entity.music.Music;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,5 +10,5 @@ import org.springframework.stereotype.Repository;
  * @Date 2022/2/26
  */
 @Repository
-public interface MusicRepository extends PagingAndSortingRepository<Music,Integer> {
+public interface MusicRepository extends PagingAndSortingRepository<Music,Integer>, QuerydslPredicateExecutor<Music> {
 }

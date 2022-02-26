@@ -1,6 +1,8 @@
 package moe.yiheng.musicservice.service;
 
 import moe.yiheng.entity.music.Music;
+import moe.yiheng.musicservice.vo.QueryConditions;
+import org.springframework.data.domain.Page;
 
 /**
  * @Author rinne
@@ -16,4 +18,6 @@ public interface MusicService {
     Integer refresh(String url);
 
     Music getById(Integer id, boolean withCharts);
+
+    Page<Music> query(QueryConditions conditions, Integer page, Integer size);
 }

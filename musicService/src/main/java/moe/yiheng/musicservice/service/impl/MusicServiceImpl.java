@@ -1,18 +1,27 @@
 package moe.yiheng.musicservice.service.impl;
 
+import com.alibaba.druid.util.StringUtils;
 import com.ejlchina.okhttps.HTTP;
 import com.ejlchina.okhttps.jackson.JacksonMsgConvertor;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.extern.slf4j.Slf4j;
 import moe.yiheng.entity.music.*;
 import moe.yiheng.musicservice.jsonEntities.RawMusicData;
 import moe.yiheng.musicservice.repository.MusicRepository;
 import moe.yiheng.musicservice.service.MusicService;
+import moe.yiheng.musicservice.utils.ExpressionUtil;
 import moe.yiheng.musicservice.utils.MusicConverter;
+import moe.yiheng.musicservice.vo.QueryConditions;
+import moe.yiheng.musicservice.vo.Range;
 import moe.yiheng.servicebase.exceptionhandler.MyException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,8 +45,6 @@ public class MusicServiceImpl implements MusicService {
                 .get()
                 .getBody()
                 .toList(RawMusicData.class);
-        log.debug("get {} musics", musicData.size());
-        log.debug(musicData.get(0).toString());
         musicData.forEach(rawMusicData -> {
             Music music = MusicConverter.convert(rawMusicData);
             if (!repository.existsById(music.getId())) {
@@ -59,5 +66,12 @@ public class MusicServiceImpl implements MusicService {
             music.get().getCharts().toString();
         }
         return music.get();
+    }
+
+    @Override
+    public Page<Music> query(QueryConditions conditions, Integer page, Integer size) {
+        BooleanExpression expression = ExpressionUtil.generateExpression(conditions);
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        return repository.findAll(expression, PageRequest.of(page-1, size, sort));
     }
 }

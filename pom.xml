@@ -77,6 +77,18 @@
                 <artifactId>okhttps-jackson</artifactId>
                 <version>3.4.2</version>
             </dependency>
+            <!--QueryDSL-->
+            <dependency>
+                <groupId>com.querydsl</groupId>
+                <artifactId>querydsl-apt</artifactId>
+                <scope>provided</scope>
+                <version>5.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.querydsl</groupId>
+                <artifactId>querydsl-jpa</artifactId>
+                <version>5.0.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
