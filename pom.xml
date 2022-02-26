@@ -6,6 +6,7 @@
     <modules>
         <module>musicService</module>
         <module>serviceBase</module>
+        <module>entity</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -34,6 +35,7 @@
             <optional>true</optional>
         </dependency>
     </dependencies>
+
     <dependencyManagement>
         <dependencies>
             <!-- springCloud -->
