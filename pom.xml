@@ -66,6 +66,17 @@
                 <artifactId>springfox-boot-starter</artifactId>
                 <version>3.0.0</version>
             </dependency>
+            <!--okhttps-->
+            <dependency>
+                <groupId>com.ejlchina</groupId>
+                <artifactId>okhttps</artifactId>
+                <version>3.4.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ejlchina</groupId>
+                <artifactId>okhttps-jackson</artifactId>
+                <version>3.4.2</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>

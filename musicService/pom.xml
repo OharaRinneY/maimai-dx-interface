@@ -50,6 +50,15 @@
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
         </dependency>
+        <!--okhttps-->
+        <dependency>
+            <groupId>com.ejlchina</groupId>
+            <artifactId>okhttps</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ejlchina</groupId>
+            <artifactId>okhttps-jackson</artifactId>
+        </dependency>
         <!--test-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
