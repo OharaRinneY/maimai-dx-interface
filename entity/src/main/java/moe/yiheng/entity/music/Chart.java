@@ -14,7 +14,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Chart {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String type;

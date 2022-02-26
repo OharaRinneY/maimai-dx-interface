@@ -18,7 +18,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Level {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String basic;

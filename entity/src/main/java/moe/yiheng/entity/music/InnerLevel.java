@@ -19,7 +19,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class InnerLevel {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private Double basic;

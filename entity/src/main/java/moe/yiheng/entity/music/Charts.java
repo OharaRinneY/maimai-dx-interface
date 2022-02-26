@@ -18,7 +18,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Charts {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @OneToOne(cascade = CascadeType.ALL)

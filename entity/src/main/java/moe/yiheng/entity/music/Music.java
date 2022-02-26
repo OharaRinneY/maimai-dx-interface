@@ -38,7 +38,7 @@ public class Music {
     @JoinColumn(name = "inner_level_id", referencedColumnName = "id")
     private InnerLevel innerLevel;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "charts_id", referencedColumnName = "id")
     private Charts charts;
 
