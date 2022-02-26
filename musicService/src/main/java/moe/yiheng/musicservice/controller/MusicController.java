@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * @Date 2022/2/26
  */
 @RestController
-@RequestMapping("/music")
+@RequestMapping("/api/music")
 @Api(tags = "查歌接口")
 public class MusicController {
 

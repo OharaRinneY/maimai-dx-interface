@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date 2022/2/26
  */
 @RestController
-@RequestMapping("chart")
+@RequestMapping("/api/chart")
 @Api(tags =  "谱面查询接口")
 public class ChartController {
 
