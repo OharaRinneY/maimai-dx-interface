@@ -53,7 +53,7 @@ public class MusicConverter {
 
     private static Chart convertChart(RawMusicData rawMusicData,int index) {
         var difficultyMap = Map.of(
-                0, "Badic",
+                0, "Basic",
                 1, "Advanced",
                 2, "Expert",
                 3, "Master",

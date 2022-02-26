@@ -3,15 +3,20 @@ package moe.yiheng.entity.music;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+/**
+ * @author rinne
+ */
 @Entity
 @Table(name = "chart")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class Chart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

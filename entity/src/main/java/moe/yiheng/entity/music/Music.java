@@ -1,5 +1,6 @@
 package moe.yiheng.entity.music;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -42,6 +43,6 @@ public class Music {
     @JoinColumn(name = "charts_id", referencedColumnName = "id")
     private Charts charts;
 
-    @Transient // 通过 alias service 查询
+    @Transient
     private List<String> alias;
 }

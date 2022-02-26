@@ -8,11 +8,13 @@ import moe.yiheng.musicservice.jsonEntities.RawMusicData;
 import moe.yiheng.musicservice.repository.MusicRepository;
 import moe.yiheng.musicservice.service.MusicService;
 import moe.yiheng.musicservice.utils.MusicConverter;
+import moe.yiheng.servicebase.exceptionhandler.MyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @Author rinne
@@ -38,11 +40,24 @@ public class MusicServiceImpl implements MusicService {
         log.debug(musicData.get(0).toString());
         musicData.forEach(rawMusicData -> {
             Music music = MusicConverter.convert(rawMusicData);
-            if (!repository.existsById(music.getId())){
+            if (!repository.existsById(music.getId())) {
                 repository.save(music);
             }
         });
 
         return musicData.size();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Music getById(Integer id, boolean withCharts) {
+        Optional<Music> music = repository.findById(id);
+        if (music.isEmpty()) {
+            throw new MyException(404, "music not found");
+        }
+        if (withCharts) {
+            music.get().getCharts().toString();
+        }
+        return music.get();
     }
 }
