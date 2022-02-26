@@ -1,6 +1,9 @@
 package moe.yiheng.entity.music;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,9 +15,11 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "music")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Music {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String title;
     private String artist;

@@ -1,13 +1,20 @@
 package moe.yiheng.entity.music;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "chart")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Chart {
     @Id
+    @GeneratedValue
     private Long id;
 
     private String type;
@@ -23,14 +30,6 @@ public class Chart {
     private Integer breakCount;
     private Integer total;
     private String designer;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
 //    @Transient // 通过comment-service查询该属性
 //    private List<Comment> comments;
