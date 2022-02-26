@@ -12,14 +12,13 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 import java.util.function.Predicate;
 
-@Configuration//配置类
+@Configuration
 @EnableOpenApi
 public class SwaggerConfig {
 
     @Bean
     public Docket webApiConfig() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("webApi")
                 .apiInfo(webApiInfo())
                 .select()
                 .paths(Predicate.not(PathSelectors.regex("/error.*")))

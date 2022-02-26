@@ -38,7 +38,7 @@ public class RefreshTest {
                 .toList(RawMusicData.class);
         Music music = MusicConverter.convert(musicData.get(0));
         System.out.println(music);
-        repository.save(music);
+//        repository.save(music);
     }
 
     @Test

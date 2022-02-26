@@ -46,8 +46,8 @@ public class MusicController {
     @ApiOperation(value = "条件查询")
     public Payload queryMusic(
             @ApiParam(value = "查询条件", required = true) @RequestBody QueryConditions conditions,
-            @ApiParam(value = "页面", required = true) @PathVariable("page") Integer page,
-            @ApiParam(value = "每页数量", required = true) @PathVariable("size") Integer size
+            @ApiParam(value = "当前页面", required = true) @PathVariable("page") Integer page,
+            @ApiParam(value = "每页数量(<=20)", required = true) @PathVariable("size") Integer size
     ) {
         if (size > 20) {
             throw new MyException(400, "最大单页数量为20");
