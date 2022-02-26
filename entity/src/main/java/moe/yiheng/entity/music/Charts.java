@@ -1,5 +1,6 @@
 package moe.yiheng.entity.music;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +20,7 @@ import javax.persistence.*;
 public class Charts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Integer id;
 
     @OneToOne(cascade = CascadeType.ALL)
