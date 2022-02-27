@@ -8,6 +8,7 @@
         <module>serviceBase</module>
         <module>entity</module>
         <module>doc</module>
+        <module>gateway</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
