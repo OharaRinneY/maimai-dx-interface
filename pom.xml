@@ -7,6 +7,7 @@
         <module>musicService</module>
         <module>serviceBase</module>
         <module>entity</module>
+        <module>doc</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -60,12 +61,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!--swagger-->
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-boot-starter</artifactId>
-                <version>3.0.0</version>
-            </dependency>
             <!--okhttps-->
             <dependency>
                 <groupId>com.ejlchina</groupId>
@@ -91,8 +86,13 @@
             </dependency>
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-spring-ui</artifactId>
+                <artifactId>knife4j-micro-spring-boot-starter</artifactId>
                 <version>3.0.3</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-aggregation-spring-boot-starter</artifactId>
+                <version>2.0.8</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
