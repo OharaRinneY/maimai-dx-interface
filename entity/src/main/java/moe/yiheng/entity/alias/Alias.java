@@ -2,7 +2,6 @@ package moe.yiheng.entity.alias;
 
 
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 

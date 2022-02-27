@@ -10,6 +10,7 @@
         <module>doc</module>
         <module>gateway</module>
         <module>aliasService</module>
+        <module>loginService</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -86,6 +87,7 @@
                 <artifactId>querydsl-jpa</artifactId>
                 <version>5.0.0</version>
             </dependency>
+            <!--knife4j-->
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-micro-spring-boot-starter</artifactId>
@@ -95,6 +97,17 @@
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-aggregation-spring-boot-starter</artifactId>
                 <version>2.0.8</version>
+            </dependency>
+            <!--sa-token-->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-spring-boot-starter</artifactId>
+                <version>1.29.0</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-jwt</artifactId>
+                <version>1.29.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

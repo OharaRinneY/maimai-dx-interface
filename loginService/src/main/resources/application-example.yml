@@ -1,0 +1,17 @@
+server:
+  port: 8000
+spring:
+  application:
+    name: login-service
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher # for swagger
+sa-token:
+  jwt-secret-key: secret-key
+  token-name: jwt
+  timeout: 15552000 # 180 dats

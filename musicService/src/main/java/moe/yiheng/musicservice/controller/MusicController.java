@@ -1,5 +1,6 @@
 package moe.yiheng.musicservice.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -9,6 +10,7 @@ import moe.yiheng.musicservice.service.MusicService;
 import moe.yiheng.musicservice.vo.QueryConditions;
 import moe.yiheng.servicebase.Payload;
 import moe.yiheng.servicebase.exceptionhandler.MyException;
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +26,8 @@ public class MusicController {
     @Autowired
     MusicService musicService;
 
-    @ApiOperation("从指定url获取乐曲列表")
+    @SaCheckLogin
+    @ApiOperation("从指定url获取乐曲列表，需有效jwt")
     @PostMapping("refresh")
     public Payload refresh(String url) {
         // "https://maimai.ohara-rinne.tech/api/maimaidxprober/music_data"
