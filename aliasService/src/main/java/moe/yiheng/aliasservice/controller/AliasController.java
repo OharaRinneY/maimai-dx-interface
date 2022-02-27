@@ -1,6 +1,8 @@
 package moe.yiheng.aliasservice.controller;
 
+import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import moe.yiheng.servicebase.Payload;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
