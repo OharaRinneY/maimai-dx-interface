@@ -11,3 +11,8 @@ knife4j:
         location: /v2/api-docs
         servicePath: /api
         swaggerVersion: 3.0
+      - name: 乐曲alias服务
+        serviceName: alias-service
+        location: /v2/api-docs
+        servicePath: /api
+        swaggerVersion: 3.0

@@ -1,0 +1,22 @@
+server:
+  port: 8000
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+    gateway:
+      routes:
+        - id: music-service
+          uri: lb://music-service
+          predicates:
+            - Path=/api/music/**,/api/chart/**
+          filters:
+            - StripPrefix=1
+        - id: alias-service
+          uri: lb://alias-service
+          predicates:
+            - Path=/api/alias/**
+          filters:
+            - StripPrefix=1

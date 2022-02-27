@@ -1,0 +1,27 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: alias-service
+  profiles:
+    active: dev
+  jpa:
+    generate-ddl: true
+  datasource:
+    druid:
+      url: "jdbc:mysql://localhost:3306/database"
+      username: "root"
+      password: "password"
+      driver-class-name: "com.mysql.cj.jdbc.Driver"
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher # for swagger
+
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+

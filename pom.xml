@@ -9,6 +9,7 @@
         <module>entity</module>
         <module>doc</module>
         <module>gateway</module>
+        <module>aliasService</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
