@@ -19,26 +19,24 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public Payload error(Exception e) {
         e.printStackTrace();
-        return Payload.fail().message(e.getMessage());
+        return Payload.fail(null).message(e.getMessage());
     }
 
     @ExceptionHandler(MyException.class)
     @ResponseBody
     public Payload error(MyException e) {
-        return Payload.fail().code(e.getCode()).message(e.getMsg());
+        return Payload.fail(null).code(e.getCode()).message(e.getMsg());
     }
 
     @ExceptionHandler(NotLoginException.class)
     @ResponseBody
     public Payload error(NotLoginException e) {
-        e.printStackTrace();
-        return Payload.fail().code(403).message("当前操作需要登录才能继续");
+        return Payload.fail(null).code(403).message("当前操作需要登录才能继续");
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     @ResponseBody
     public Payload error(MethodArgumentTypeMismatchException e) {
-        e.printStackTrace();
-        return Payload.fail().code(401).message("参数类型有误");
+        return Payload.fail(null).code(401).message("参数类型有误");
     }
 }

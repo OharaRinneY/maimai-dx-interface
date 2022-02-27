@@ -9,7 +9,7 @@ import moe.yiheng.musicservice.repository.MusicRepository;
 import moe.yiheng.musicservice.service.MusicService;
 import moe.yiheng.musicservice.utils.ExpressionUtil;
 import moe.yiheng.musicservice.utils.MusicConverter;
-import moe.yiheng.musicservice.vo.Range;
+import moe.yiheng.musicservice.dto.Range;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

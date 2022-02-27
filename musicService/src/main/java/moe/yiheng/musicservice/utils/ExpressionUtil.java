@@ -3,8 +3,8 @@ package moe.yiheng.musicservice.utils;
 import com.alibaba.druid.util.StringUtils;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import moe.yiheng.entity.music.QMusic;
-import moe.yiheng.musicservice.vo.QueryConditions;
-import moe.yiheng.musicservice.vo.Range;
+import moe.yiheng.musicservice.dto.QueryConditions;
+import moe.yiheng.musicservice.dto.Range;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,10 @@
 package moe.yiheng.musicservice.controller;
 
+import com.alibaba.druid.sql.visitor.functions.Char;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import moe.yiheng.entity.music.Chart;
 import moe.yiheng.entity.music.Charts;
 import moe.yiheng.entity.music.Music;
 import moe.yiheng.musicservice.service.MusicService;
@@ -28,7 +30,7 @@ public class ChartController {
 
     @GetMapping("{id}/{difficulty}")
     @ApiOperation("获取指定乐曲的指定谱面")
-    public Payload getChart(
+    public Payload<Chart> getChart(
             @ApiParam("歌曲id") @PathVariable("id") Integer id,
             @ApiParam("难度，从1-5") @PathVariable("difficulty") Integer difficulty) {
         Music music = service.getById(id, true);
@@ -36,18 +38,18 @@ public class ChartController {
         Charts charts = music.getCharts();
         switch (difficulty) {
             case 1:
-                return Payload.success().data("chart", charts.getBasic());
+                return Payload.success(charts.getBasic());
             case 2:
-                return Payload.success().data("chart", charts.getAdvanced());
+                return Payload.success(charts.getAdvanced());
             case 3:
-                return Payload.success().data("chart", charts.getExpert());
+                return Payload.success(charts.getExpert());
             case 4:
-                return Payload.success().data("chart", charts.getMaster());
+                return Payload.success(charts.getMaster());
             case 5:
                 if (charts.getRemaster() == null) {
                     throw new MyException(400, "难度不存在");
                 }
-                return Payload.success().data("chart", charts.getRemaster());
+                return Payload.success(charts.getRemaster());
             default:
                 throw new MyException(400, "难度不存在");
         }

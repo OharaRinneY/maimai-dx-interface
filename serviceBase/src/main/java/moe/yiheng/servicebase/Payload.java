@@ -1,5 +1,7 @@
 package moe.yiheng.servicebase;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -14,42 +16,45 @@ import java.util.Map;
 @ToString
 @EqualsAndHashCode
 @Getter
-public class Payload {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Payload<T> {
     private Boolean success;
     private Integer code;
     private String message;
-    private final Map<String, Object> data = new HashMap<>();
+    private T data;
 
     private Payload() {
     }
 
-    public static Payload success() {
-        Payload payload = new Payload();
+    public static <T> Payload<T> success(T data) {
+        var payload = new Payload<T>();
         payload.code = 200;
         payload.success = true;
         payload.message = "success";
+        payload.data = data;
         return payload;
     }
 
-    public static Payload fail() {
-        Payload payload = new Payload();
-        payload.code = 401;
+    public static <T> Payload<T> fail(T data) {
+        var payload = new Payload<T>();
+        payload.code = 400;
         payload.success = false;
         payload.message = "fail";
+        payload.data = data;
         return payload;
     }
 
-    public Payload message(String msg) {
+    public Payload<T> message(String msg) {
         this.message = msg;
         return this;
     }
 
-    public Payload data(String key, Object value) {
-        this.data.put(key, value);
+    public Payload<T> data(T data) {
+        this.data = data;
         return this;
     }
 
-    public Payload code(Integer code) {
+    public Payload<T> code(Integer code) {
         this.code = code;
         return this;
     }

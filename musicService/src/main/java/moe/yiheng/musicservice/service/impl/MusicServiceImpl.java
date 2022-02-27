@@ -1,6 +1,5 @@
 package moe.yiheng.musicservice.service.impl;
 
-import com.alibaba.druid.util.StringUtils;
 import com.ejlchina.okhttps.HTTP;
 import com.ejlchina.okhttps.jackson.JacksonMsgConvertor;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -11,8 +10,7 @@ import moe.yiheng.musicservice.repository.MusicRepository;
 import moe.yiheng.musicservice.service.MusicService;
 import moe.yiheng.musicservice.utils.ExpressionUtil;
 import moe.yiheng.musicservice.utils.MusicConverter;
-import moe.yiheng.musicservice.vo.QueryConditions;
-import moe.yiheng.musicservice.vo.Range;
+import moe.yiheng.musicservice.dto.QueryConditions;
 import moe.yiheng.servicebase.exceptionhandler.MyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,7 +19,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

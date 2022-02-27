@@ -1,7 +1,7 @@
 package moe.yiheng.musicservice.service;
 
 import moe.yiheng.entity.music.Music;
-import moe.yiheng.musicservice.vo.QueryConditions;
+import moe.yiheng.musicservice.dto.QueryConditions;
 import org.springframework.data.domain.Page;
 
 /**

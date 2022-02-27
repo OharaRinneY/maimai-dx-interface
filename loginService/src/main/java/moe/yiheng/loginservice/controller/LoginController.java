@@ -23,18 +23,18 @@ public class LoginController {
     @ApiOperation(value = "临时解决方案，需有效jwt")
     @SaCheckLogin
     @GetMapping("token")
-    public Payload token(String username) {
+    public Payload<SaTokenInfo> token(String username) {
         StpUtil.login(username);
         SaTokenInfo token = StpUtil.getTokenInfo();
-        return Payload.success().data("token", token);
+        return Payload.success(token);
     }
 
     @GetMapping("checkToken")
-    public Payload checkToken(String token) {
+    public Payload<Object> checkToken(String token) {
         Object id = StpUtil.getLoginIdByToken(token);
         if (id == null){
-            return Payload.fail().message("token无效");
+            return Payload.fail(null).message("token无效");
         }
-        return Payload.success().data("id", id);
+        return Payload.success(id);
     }
 }

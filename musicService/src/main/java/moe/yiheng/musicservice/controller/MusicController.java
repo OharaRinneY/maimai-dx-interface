@@ -4,13 +4,12 @@ import cn.dev33.satoken.annotation.SaCheckLogin;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import moe.yiheng.entity.music.Charts;
 import moe.yiheng.entity.music.Music;
 import moe.yiheng.musicservice.service.MusicService;
-import moe.yiheng.musicservice.vo.QueryConditions;
+import moe.yiheng.musicservice.dto.QueryConditions;
 import moe.yiheng.servicebase.Payload;
+import moe.yiheng.servicebase.dto.PageDTO;
 import moe.yiheng.servicebase.exceptionhandler.MyException;
-import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +31,7 @@ public class MusicController {
     public Payload refresh(String url) {
         // "https://maimai.ohara-rinne.tech/api/maimaidxprober/music_data"
         Integer count = musicService.refresh(url);
-        return Payload.success().data("count", count);
+        return Payload.success(count);
     }
 
     @GetMapping("{id}")
@@ -42,7 +41,7 @@ public class MusicController {
             @ApiParam(value = "是否包含谱面信息", required = false) boolean withCharts
     ) {
         Music music = musicService.getById(id, withCharts);
-        return Payload.success().data("music", music);
+        return Payload.success(music);
     }
 
     @PostMapping("query/{page}/{size}")
@@ -56,8 +55,6 @@ public class MusicController {
             throw new MyException(400, "最大单页数量为20");
         }
         var resultPage = musicService.query(conditions, page, size);
-        return Payload.success()
-                .data("total", resultPage.getTotalElements())
-                .data("items", resultPage.getContent());
+        return Payload.success(new PageDTO<>(resultPage.getTotalElements(), resultPage.getContent()));
     }
 }

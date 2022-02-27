@@ -1,4 +1,4 @@
-package moe.yiheng.musicservice.vo;
+package moe.yiheng.musicservice.dto;
 
 import lombok.Data;
 
