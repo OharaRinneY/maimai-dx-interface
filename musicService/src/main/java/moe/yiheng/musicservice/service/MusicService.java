@@ -3,6 +3,7 @@ package moe.yiheng.musicservice.service;
 import moe.yiheng.entity.music.Music;
 import moe.yiheng.musicservice.dto.QueryConditions;
 import org.springframework.data.domain.Page;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -17,6 +18,8 @@ public interface MusicService {
      * @return 获取的音乐数量
      */
     Integer refreshMusic(String url);
+
+    void refreshChartStatByScheduler();
 
     Music getById(Integer id, boolean withCharts);
 

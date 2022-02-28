@@ -64,7 +64,6 @@ public class MusicServiceImpl implements MusicService {
 
     @Override
     @Transactional
-    @Scheduled(cron = "0 0 0,12 * * ?") // 0:00 and 12:00
     public Integer refreshChartStat() {
         val url = "https://maimai.ohara-rinne.tech/api/maimaidxprober/chart_stats";
         var chartStatsStr = http.sync(url)
@@ -97,6 +96,12 @@ public class MusicServiceImpl implements MusicService {
         } catch (JsonProcessingException e) {
             throw new MyException(400,"解析失败");
         }
+    }
+
+    @Override
+    @Scheduled(cron = "0 0 0,12 * * ?") // 0:00 and 12:00
+    public void refreshChartStatByScheduler() {
+        refreshChartStat();
     }
 
     @Override
