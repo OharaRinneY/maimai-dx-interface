@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
  * @Author rinne
  * @Date 2022/2/28
@@ -12,5 +14,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PageDTO<T> {
     private Long total;
-    private T data;
+    private List<T> data;
 }

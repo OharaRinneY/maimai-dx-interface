@@ -2,7 +2,9 @@ package moe.yiheng.aliasservice.controller;
 
 import moe.yiheng.aliasservice.service.AliasService;
 import moe.yiheng.entity.alias.Alias;
+import moe.yiheng.entity.music.Music;
 import moe.yiheng.servicebase.Payload;
+import moe.yiheng.servicebase.feign.MusicClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +26,8 @@ public class AliasController {
     @Autowired
     private AliasService service;
 
+    @Autowired
+    MusicClient client;
     @GetMapping("{id}")
     public Payload<List<String>> getAlias(@PathVariable("id") Integer musicId) {
         List<Alias> alias = service.findByMusicId(musicId);
@@ -31,4 +35,5 @@ public class AliasController {
         alias.forEach(a -> aliasStrList.add(a.getAlias()));
         return Payload.success(aliasStrList);
     }
+
 }

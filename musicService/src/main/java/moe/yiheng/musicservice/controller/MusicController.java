@@ -28,7 +28,7 @@ public class MusicController {
     @SaCheckLogin
     @ApiOperation("从指定url获取乐曲列表，需有效jwt")
     @PostMapping("refresh")
-    public Payload refresh(String url) {
+    public Payload<Integer> refresh(String url) {
         // "https://maimai.ohara-rinne.tech/api/maimaidxprober/music_data"
         Integer count = musicService.refresh(url);
         return Payload.success(count);
@@ -36,7 +36,7 @@ public class MusicController {
 
     @GetMapping("{id}")
     @ApiOperation(value = "获取乐曲信息")
-    public Payload getMusic(
+    public Payload<Music> getMusic(
             @PathVariable("id") @ApiParam(value = "乐曲id", required = true) Integer id,
             @ApiParam(value = "是否包含谱面信息", required = false) boolean withCharts
     ) {
@@ -46,7 +46,7 @@ public class MusicController {
 
     @PostMapping("query/{page}/{size}")
     @ApiOperation(value = "条件查询")
-    public Payload queryMusic(
+    public Payload<PageDTO<Music>> queryMusic(
             @ApiParam(value = "查询条件", required = true) @RequestBody QueryConditions conditions,
             @ApiParam(value = "当前页面", required = true) @PathVariable("page") Integer page,
             @ApiParam(value = "每页数量(<=20)", required = true) @PathVariable("size") Integer size
