@@ -20,7 +20,7 @@ public class LoginController {
     /**
      * 临时解决方案
      */
-    @ApiOperation(value = "临时解决方案，需有效jwt")
+    @ApiOperation(value = "获取token(临时解决方案),需有效jwt")
     @SaCheckLogin
     @GetMapping("token")
     public Payload<SaTokenInfo> token(String username) {
@@ -30,6 +30,7 @@ public class LoginController {
     }
 
     @GetMapping("checkToken")
+    @ApiOperation(value = "检查token是否有效")
     public Payload<Object> checkToken(String token) {
         Object id = StpUtil.getLoginIdByToken(token);
         if (id == null){
