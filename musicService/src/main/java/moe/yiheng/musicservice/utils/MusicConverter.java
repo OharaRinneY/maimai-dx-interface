@@ -1,6 +1,7 @@
 package moe.yiheng.musicservice.utils;
 
 import moe.yiheng.entity.music.*;
+import moe.yiheng.enums.entity.Difficulty;
 import moe.yiheng.musicservice.jsonEntities.RawMusicData;
 
 import java.util.Map;
@@ -52,17 +53,10 @@ public class MusicConverter {
     }
 
     private static Chart convertChart(RawMusicData rawMusicData,int index) {
-        var difficultyMap = Map.of(
-                0, "Basic",
-                1, "Advanced",
-                2, "Expert",
-                3, "Master",
-                4, "Remaster"
-        );
         RawMusicData.RawChart rawChart = rawMusicData.getCharts().get(index);
         Chart.ChartBuilder chart = Chart.builder()
                 .type(rawMusicData.getType())
-                .difficulty(difficultyMap.get(index))
+                .difficulty(Difficulty.getById(index).getName())
                 .innerLevel(rawMusicData.getDs().get(index))
                 .designer(rawChart.getCharter())
                 .tap(Integer.parseInt(rawChart.getNotes().get(0)))

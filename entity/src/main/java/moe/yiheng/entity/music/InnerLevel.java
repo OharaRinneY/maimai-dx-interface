@@ -18,7 +18,7 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class InnerLevel {
+public class InnerLevel extends BaseEntityWithFiveDifficulties<Double>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore

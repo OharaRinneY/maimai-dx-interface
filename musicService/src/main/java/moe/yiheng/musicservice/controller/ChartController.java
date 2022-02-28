@@ -8,11 +8,14 @@ import io.swagger.annotations.ApiParam;
 import moe.yiheng.entity.music.Chart;
 import moe.yiheng.entity.music.Charts;
 import moe.yiheng.entity.music.Music;
+import moe.yiheng.enums.entity.Difficulty;
 import moe.yiheng.musicservice.service.MusicService;
 import moe.yiheng.servicebase.Payload;
 import moe.yiheng.servicebase.exceptionhandler.MyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 /**
  * @Author rinne
@@ -30,27 +33,13 @@ public class ChartController {
     @ApiOperation("获取指定乐曲的指定谱面")
     public Payload<Chart> getChart(
             @ApiParam("歌曲id") @PathVariable("id") Integer id,
-            @ApiParam("难度，从1-5") @PathVariable("difficulty") Integer difficulty) {
+            @ApiParam("难度，从0-4") @PathVariable("difficulty") Integer difficulty) {
         Music music = service.getById(id, true);
-        // 不优雅，想办法重构
-        Charts charts = music.getCharts();
-        switch (difficulty) {
-            case 1:
-                return Payload.success(charts.getBasic());
-            case 2:
-                return Payload.success(charts.getAdvanced());
-            case 3:
-                return Payload.success(charts.getExpert());
-            case 4:
-                return Payload.success(charts.getMaster());
-            case 5:
-                if (charts.getRemaster() == null) {
-                    throw new MyException(400, "难度不存在");
-                }
-                return Payload.success(charts.getRemaster());
-            default:
-                throw new MyException(400, "难度不存在");
+        var chart = music.getCharts().getByDifficulty(Difficulty.getById(difficulty));
+        if (chart.isEmpty()) {
+            throw new MyException(400, "难度不存在");
         }
+        return Payload.success(chart.get());
     }
 
     @SaCheckLogin

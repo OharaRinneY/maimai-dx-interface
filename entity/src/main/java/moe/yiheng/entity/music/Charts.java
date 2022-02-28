@@ -19,7 +19,7 @@ import java.util.Optional;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Charts {
+public class Charts extends BaseEntityWithFiveDifficulties<Chart> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
@@ -41,20 +41,4 @@ public class Charts {
     @JoinColumn(name = "remaster_id")
     private Chart remaster;
 
-    public Optional<Chart> getByDifficulty(Difficulty difficulty) {
-        switch (difficulty) {
-            case BASIC:
-                return Optional.of(basic);
-            case ADVANCED:
-                return Optional.of(advanced);
-            case EXPERT:
-                return Optional.of(expert);
-            case MASTER:
-                return Optional.of(master);
-            case REMASTER:
-                return Optional.ofNullable(remaster);
-            default:
-                return Optional.empty();
-        }
-    }
 }

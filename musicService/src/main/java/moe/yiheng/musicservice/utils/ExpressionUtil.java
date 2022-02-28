@@ -3,6 +3,7 @@ package moe.yiheng.musicservice.utils;
 import com.alibaba.druid.util.StringUtils;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import moe.yiheng.entity.music.QMusic;
+import moe.yiheng.enums.entity.Difficulty;
 import moe.yiheng.musicservice.dto.QueryConditions;
 import moe.yiheng.musicservice.dto.Range;
 
@@ -55,7 +56,7 @@ public class ExpressionUtil {
             if (dsRange == null) {
                 // 如果没有定数条件
                 // 则只有Re:Mas需要添加条件
-                if (StringUtils.equalsIgnoreCase(conditions.getDifficulty(), "Remaster")) {
+                if (StringUtils.equalsIgnoreCase(conditions.getDifficulty(), Difficulty.REMASTER.getName())) {
                     expression = expression.and(music.innerLevel.remaster.isNotNull());
                 }
             } else {
