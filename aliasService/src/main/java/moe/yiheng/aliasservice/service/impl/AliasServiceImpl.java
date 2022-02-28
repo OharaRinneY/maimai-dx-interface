@@ -79,5 +79,33 @@ public class AliasServiceImpl implements AliasService {
         return ids;
     }
 
+    @Override
+    @Transactional
+    public void deleteAlias(Integer musicId, String alias) {
+        // copilot 写的 有事问 copilot
+        Alias a = repository.findByMusicIdAndAlias(musicId, alias);
+        if (a == null) {
+            throw new MyException(400, "别名不存在");
+        }
+        repository.delete(a);
+    }
 
+    @Override
+    public List<Alias> getNotPassedAlias() {
+        return repository.findAllByPassed(false);
+    }
+
+    @Override
+    @Transactional
+    public void passAlias(Integer id) {
+        // copilot写的
+        Alias a = repository.findById(id).orElseThrow(() -> new MyException(404, "别名不存在"));
+        a.setPassed(true);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAliasById(Integer id) {
+        repository.deleteById(id);
+    }
 }

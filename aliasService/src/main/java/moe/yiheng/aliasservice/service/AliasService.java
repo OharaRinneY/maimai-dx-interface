@@ -22,4 +22,12 @@ public interface AliasService {
     List<String> getPassedAliasStr(Integer musicId);
 
     Set<Integer> getMusicIdsByAlias(String alias);
+
+    void deleteAlias(Integer musicId, String alias);
+
+    List<Alias> getNotPassedAlias();
+
+    void passAlias(Integer id);
+
+    void deleteAliasById(Integer id);
 }

@@ -15,4 +15,8 @@ public interface AliasRepository extends JpaRepository<Alias, Integer> {
     List<Alias> findAliasByMusicIdAndPassed(Integer musicId, Boolean passed);
 
     List<Alias> findAllByAliasContainingIgnoreCase(String alias);
+
+    Alias findByMusicIdAndAlias(Integer musicId, String alias);
+
+    List<Alias> findAllByPassed(boolean b);
 }
