@@ -3,6 +3,7 @@ package moe.yiheng.aliasservice.service;
 import moe.yiheng.entity.alias.Alias;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Author rinne
@@ -19,4 +20,6 @@ public interface AliasService {
     String addAlias(Integer musicId, String alias);
 
     List<String> getPassedAliasStr(Integer musicId);
+
+    Set<Integer> getMusicIdsByAlias(String alias);
 }

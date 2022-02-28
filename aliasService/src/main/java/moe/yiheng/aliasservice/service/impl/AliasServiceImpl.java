@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Author rinne
@@ -65,6 +67,16 @@ public class AliasServiceImpl implements AliasService {
         List<String> aliasStr = new ArrayList<>();
         alias.forEach(a -> aliasStr.add(a.getAlias()));
         return aliasStr;
+    }
+
+    @Override
+    public Set<Integer> getMusicIdsByAlias(String alias) {
+        List<Alias> aliases = repository.findAllByAliasContainingIgnoreCase(alias);
+        Set<Integer> ids = new HashSet<>();
+        aliases.forEach(a -> {
+            ids.add(a.getMusicId());
+        });
+        return ids;
     }
 
 

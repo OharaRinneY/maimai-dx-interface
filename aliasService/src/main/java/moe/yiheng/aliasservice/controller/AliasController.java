@@ -1,17 +1,13 @@
 package moe.yiheng.aliasservice.controller;
 
-import cn.dev33.satoken.stp.StpUtil;
 import moe.yiheng.aliasservice.service.AliasService;
-import moe.yiheng.entity.alias.Alias;
-import moe.yiheng.entity.music.Music;
 import moe.yiheng.servicebase.Payload;
-import moe.yiheng.servicebase.feign.MusicClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Author rinne
@@ -33,5 +29,10 @@ public class AliasController {
     public Payload<Object> addAlias(@PathVariable("id") Integer musicId, @RequestBody String alias) {
         String message = service.addAlias(musicId, alias);
         return Payload.success(null).message(message);
+    }
+
+    @GetMapping("/query/{alias}")
+    public Payload<Set<Integer>> getMusicIdsByAlias(@PathVariable("alias") String alias) {
+        return Payload.success(service.getMusicIdsByAlias(alias));
     }
 }
