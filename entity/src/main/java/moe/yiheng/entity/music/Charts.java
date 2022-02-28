@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import moe.yiheng.enums.entity.Difficulty;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 /**
  * @Author rinne
@@ -38,4 +40,21 @@ public class Charts {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "remaster_id")
     private Chart remaster;
+
+    public Optional<Chart> getByDifficulty(Difficulty difficulty) {
+        switch (difficulty) {
+            case BASIC:
+                return Optional.of(basic);
+            case ADVANCED:
+                return Optional.of(advanced);
+            case EXPERT:
+                return Optional.of(expert);
+            case MASTER:
+                return Optional.of(master);
+            case REMASTER:
+                return Optional.ofNullable(remaster);
+            default:
+                return Optional.empty();
+        }
+    }
 }

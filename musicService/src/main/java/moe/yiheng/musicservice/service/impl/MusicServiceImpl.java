@@ -1,10 +1,15 @@
 package moe.yiheng.musicservice.service.impl;
 
 import com.ejlchina.okhttps.HTTP;
-import com.ejlchina.okhttps.jackson.JacksonMsgConvertor;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import moe.yiheng.entity.music.*;
+import moe.yiheng.enums.entity.Difficulty;
+import moe.yiheng.musicservice.jsonEntities.RawChartStat;
 import moe.yiheng.musicservice.jsonEntities.RawMusicData;
 import moe.yiheng.musicservice.repository.MusicRepository;
 import moe.yiheng.musicservice.service.MusicService;
@@ -17,10 +22,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -34,12 +41,13 @@ public class MusicServiceImpl implements MusicService {
     MusicRepository repository;
     @Autowired
     AliasClient aliasClient;
+    @Autowired
+    HTTP http;
+
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Integer refresh(String url) {
-        HTTP http = HTTP.builder()
-                .addMsgConvertor(new JacksonMsgConvertor())
-                .build();
+    public Integer refreshMusic(String url) {
+
         List<RawMusicData> musicData = http.sync(url)
                 .get()
                 .getBody()
@@ -52,6 +60,43 @@ public class MusicServiceImpl implements MusicService {
         });
 
         return musicData.size();
+    }
+
+    @Override
+    @Transactional
+    @Scheduled(cron = "0 0 0,12 * * ?") // 0:00 and 12:00
+    public Integer refreshChartStat() {
+        val url = "https://maimai.ohara-rinne.tech/api/maimaidxprober/chart_stats";
+        var chartStatsStr = http.sync(url)
+                .get()
+                .getBody()
+                .toString();
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            // {`id`:[{},{},{},{},{}],...}
+            var chartStats = mapper.readValue(chartStatsStr, new TypeReference<Map<Integer, List<RawChartStat>>>() {
+            });
+            chartStats.forEach((id, stat) -> {
+                repository.findById(id).ifPresent(music -> {
+                    Charts charts = music.getCharts();
+                    for (int i = 0; i < 5; i++) {
+                        int finalI = i;
+                        charts.getByDifficulty(Difficulty.getById(i)).ifPresent(chart -> {
+                            RawChartStat rawChartStat = stat.get(finalI);
+                            chart.setPlayerCount(rawChartStat.getCount());
+                            chart.setAverage(rawChartStat.getAvg());
+                            chart.setSSSCount(rawChartStat.getSsspCount());
+                            chart.setTag(rawChartStat.getTag());
+                            chart.setDifficultyRankInSameLevel(rawChartStat.getV());
+                            chart.setSongCountInSameLevel(rawChartStat.getT());
+                        });
+                    }
+                });
+            });
+            return chartStats.size();
+        } catch (JsonProcessingException e) {
+            throw new MyException(400,"解析失败");
+        }
     }
 
     @Override

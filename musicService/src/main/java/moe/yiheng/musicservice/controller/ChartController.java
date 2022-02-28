@@ -1,5 +1,6 @@
 package moe.yiheng.musicservice.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.alibaba.druid.sql.visitor.functions.Char;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -11,10 +12,7 @@ import moe.yiheng.musicservice.service.MusicService;
 import moe.yiheng.servicebase.Payload;
 import moe.yiheng.servicebase.exceptionhandler.MyException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Author rinne
@@ -53,5 +51,14 @@ public class ChartController {
             default:
                 throw new MyException(400, "难度不存在");
         }
+    }
+
+    @SaCheckLogin
+    @ApiOperation("刷新谱面统计信息，需有效jwt")
+    @PostMapping("refresh")
+    public Payload<Integer> refreshChartStat() {
+        // "https://maimai.ohara-rinne.tech/api/maimaidxprober/chart_stats"
+        Integer count = service.refreshChartStat();
+        return Payload.success(count);
     }
 }

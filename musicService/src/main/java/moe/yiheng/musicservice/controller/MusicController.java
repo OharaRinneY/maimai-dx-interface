@@ -13,8 +13,6 @@ import moe.yiheng.servicebase.exceptionhandler.MyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 /**
  * @Author rinne
  * @Date 2022/2/26
@@ -30,9 +28,9 @@ public class MusicController {
     @SaCheckLogin
     @ApiOperation("从指定url获取乐曲列表，需有效jwt")
     @PostMapping("refresh")
-    public Payload<Integer> refresh(String url) {
+    public Payload<Integer> refreshMusic(String url) {
         // "https://maimai.ohara-rinne.tech/api/maimaidxprober/music_data"
-        Integer count = musicService.refresh(url);
+        Integer count = musicService.refreshMusic(url);
         return Payload.success(count);
     }
 

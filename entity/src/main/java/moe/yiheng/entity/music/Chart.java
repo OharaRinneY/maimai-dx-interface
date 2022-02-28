@@ -38,6 +38,13 @@ public class Chart {
     private Integer total;
     private String designer;
 
-//    @Transient // 通过comment-service查询该属性
+    // 统计数据
+    private Integer playerCount;
+    private Integer SSSCount;
+    private Double average;
+    private String tag;
+    private Integer difficultyRankInSameLevel;
+    private Integer songCountInSameLevel;
+//    @Transient
 //    private List<Comment> comments;
 }
