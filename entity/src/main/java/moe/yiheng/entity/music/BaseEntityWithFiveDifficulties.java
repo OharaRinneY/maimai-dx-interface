@@ -1,6 +1,5 @@
 package moe.yiheng.entity.music;
 
-import lombok.Data;
 import moe.yiheng.enums.entity.Difficulty;
 
 import java.util.Optional;
@@ -30,6 +29,7 @@ public abstract class BaseEntityWithFiveDifficulties<T> {
 
     public abstract T getBasic();
 
+    public abstract void setBasic(T basic);
 
     public abstract T getAdvanced();
 
