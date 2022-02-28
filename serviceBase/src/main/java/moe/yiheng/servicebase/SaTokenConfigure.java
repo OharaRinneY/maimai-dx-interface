@@ -14,7 +14,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @Date 2022/2/27
  */
 @Configuration
-@EnableWebMvc
 public class SaTokenConfigure implements WebMvcConfigurer {
     @Bean
     public StpLogic getStpLogicJwt() {
