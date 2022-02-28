@@ -1,7 +1,10 @@
 package moe.yiheng.entity.alias;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -12,6 +15,9 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(name = "alias")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Alias {
     @Id
     @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)

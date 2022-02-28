@@ -10,4 +10,13 @@ import java.util.List;
  */
 public interface AliasService {
     List<Alias> findByMusicId(Integer musicId);
+
+    /**
+     * @param musicId
+     * @param alias
+     * @return message
+     */
+    String addAlias(Integer musicId, String alias);
+
+    List<String> getPassedAliasStr(Integer musicId);
 }

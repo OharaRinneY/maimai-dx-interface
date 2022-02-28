@@ -11,4 +11,7 @@ import java.util.List;
  */
 public interface AliasRepository extends JpaRepository<Alias, Integer> {
     List<Alias> findByMusicId(Integer musicId);
+
+    List<Alias> findAliasByMusicIdAndPassed(Integer musicId, Boolean passed);
+
 }

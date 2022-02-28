@@ -1,6 +1,8 @@
 package moe.yiheng.servicebase.exceptionhandler;
 
 import cn.dev33.satoken.exception.NotLoginException;
+import cn.hutool.extra.template.engine.freemarker.FreemarkerTemplate;
+import feign.codec.DecodeException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -39,4 +41,15 @@ public class GlobalExceptionHandler {
     public Payload error(MethodArgumentTypeMismatchException e) {
         return Payload.fail(null).code(401).message("参数类型有误");
     }
+
+    @ExceptionHandler(DecodeException.class)
+    @ResponseBody
+    public Payload error(DecodeException e) {
+        if (e.getCause() instanceof MyException) {
+            MyException myException = (MyException) e.getCause();
+            return Payload.fail(null).code(myException.getCode()).message(myException.getMsg());
+        }
+        return Payload.fail(null).code(400).message("服务调用出错");
+    }
+
 }

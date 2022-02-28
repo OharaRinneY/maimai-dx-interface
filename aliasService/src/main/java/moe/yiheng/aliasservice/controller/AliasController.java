@@ -1,5 +1,6 @@
 package moe.yiheng.aliasservice.controller;
 
+import cn.dev33.satoken.stp.StpUtil;
 import moe.yiheng.aliasservice.service.AliasService;
 import moe.yiheng.entity.alias.Alias;
 import moe.yiheng.entity.music.Music;
@@ -7,10 +8,7 @@ import moe.yiheng.servicebase.Payload;
 import moe.yiheng.servicebase.feign.MusicClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,14 +24,14 @@ public class AliasController {
     @Autowired
     private AliasService service;
 
-    @Autowired
-    MusicClient client;
     @GetMapping("{id}")
     public Payload<List<String>> getAlias(@PathVariable("id") Integer musicId) {
-        List<Alias> alias = service.findByMusicId(musicId);
-        List<String> aliasStrList = new ArrayList<>();
-        alias.forEach(a -> aliasStrList.add(a.getAlias()));
-        return Payload.success(aliasStrList);
+        return Payload.success(service.getPassedAliasStr(musicId));
     }
 
+    @PostMapping("{id}")
+    public Payload<Object> addAlias(@PathVariable("id") Integer musicId, @RequestBody String alias) {
+        String message = service.addAlias(musicId, alias);
+        return Payload.success(null).message(message);
+    }
 }

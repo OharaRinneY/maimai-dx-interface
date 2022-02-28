@@ -36,7 +36,6 @@ public class FeignPayloadDecoder implements Decoder {
         JavaType javaType = TypeFactory.defaultInstance().constructParametricType(Payload.class, innerType);
 
         Payload payload = (Payload) objectMapper.readValue(body, javaType);
-
         if (!payload.getSuccess()) {
             throw new MyException(payload.getCode(), payload.getMessage());
         }
