@@ -23,7 +23,7 @@ public class AliasController {
     private AliasService service;
 
     @GetMapping("{music_id}")
-    public Payload<List<String>> getAlias(@PathVariable("music_id") Integer musicId) {
+    public Payload<List<String>> getAliasByMusicId(@PathVariable("music_id") Integer musicId) {
         return Payload.success(service.getPassedAliasStr(musicId));
     }
 

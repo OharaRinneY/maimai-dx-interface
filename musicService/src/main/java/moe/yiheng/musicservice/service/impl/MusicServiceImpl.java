@@ -12,6 +12,7 @@ import moe.yiheng.musicservice.utils.ExpressionUtil;
 import moe.yiheng.musicservice.utils.MusicConverter;
 import moe.yiheng.musicservice.dto.QueryConditions;
 import moe.yiheng.servicebase.exceptionhandler.MyException;
+import moe.yiheng.servicebase.feign.AliasClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,7 +32,8 @@ import java.util.Optional;
 public class MusicServiceImpl implements MusicService {
     @Autowired
     MusicRepository repository;
-
+    @Autowired
+    AliasClient aliasClient;
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Integer refresh(String url) {
@@ -55,20 +57,28 @@ public class MusicServiceImpl implements MusicService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Music getById(Integer id, boolean withCharts) {
-        Optional<Music> music = repository.findById(id);
-        if (music.isEmpty()) {
+        Optional<Music> musicOptional = repository.findById(id);
+        if (musicOptional.isEmpty()) {
             throw new MyException(404, "music not found");
         }
+        Music music = musicOptional.get();
         if (withCharts) {
-            music.get().getCharts().toString();
+            music.getCharts().toString();
         }
-        return music.get();
+        List<String> alias = aliasClient.getAliasByMusicId(id);
+        music.setAlias(alias);
+        return music;
     }
 
     @Override
     public Page<Music> query(QueryConditions conditions, Integer page, Integer size) {
         BooleanExpression expression = ExpressionUtil.generateExpression(conditions);
-        Sort sort = Sort.by(Sort.Direction.DESC, "id");
-        return repository.findAll(expression, PageRequest.of(page-1, size, sort));
+        Sort sort = Sort.by(Sort.Direction.ASC, "id");
+        Page<Music> all = repository.findAll(expression, PageRequest.of(page - 1, size, sort));
+        // add alias
+        all.getContent().forEach(music -> {
+            music.setAlias(aliasClient.getAliasByMusicId(music.getId()));
+        });
+        return all;
     }
 }
