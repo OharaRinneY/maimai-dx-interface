@@ -376,16 +376,29 @@
 | code     |          | integer(int32) |
 | data     |          | array          |
 | success  |          | boolean        |
-
+| message | | string | 
 
 **响应示例**:
 
 ```javascript
 {
-  "success": true,
-  "code": 200,
-  "message": "success",
-  "data": []
+    "success": true,
+        "code": 200,
+        "message": "success",
+        "data": [
+        {
+            "musicId": 627,
+            "alias": "哨戒班ll"
+        },
+        {
+            "musicId": 11198,
+            "alias": "明日的夜空哨戒班"
+        },
+        {
+            "musicId": 507,
+            "alias": "哨戒班"
+        }
+    ]
 }
 ```
 
@@ -423,7 +436,7 @@
 | 参数名称 | 参数说明 | 类型           |
 | -------- |------| -------------- |
 | code     |      | integer(int32) |
-| data     | 乐曲列表 | array          |
+| data     | 别名列表 | array          |
 | message  |      | string         |
 | success  |      | boolean        |
 
@@ -432,15 +445,14 @@
 
 ```json
 {
-    "success": true,
-        "code": 200,
-        "message": "success",
-        "data": [
-        {
-            "musicId": 8,
-            "alias": "test"
-        }
-    ]
+  "success": true,
+  "code": 200,
+  "message": "success",
+  "data": [
+    "烧鸡班",
+    "哨戒班",
+    "明日夜空的哨戒班"
+  ]
 }
 ```
 
@@ -462,10 +474,10 @@
 **请求参数**:
 
 
-| 参数名称 | 参数说明 | 请求类型 | 是否必须 | 数据类型       |
-| -------- | -------- | -------- | -------- | -------------- |
-| alias    | alias    | body     | true     | string         |
-| music_id | music_id | path     | true     | integer(int32) |
+| 参数名称 | 参数说明 | 请求类型  | 是否必须 | 数据类型       |
+| -------- | -------- |-------| -------- | -------------- |
+| alias    | alias    | query | true     | string         |
+| music_id | music_id | path  | true     | integer(int32) |
 
 **响应参数**:
 
