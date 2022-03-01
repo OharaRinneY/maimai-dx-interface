@@ -1,5 +1,6 @@
 package moe.yiheng.aliasservice.service;
 
+import moe.yiheng.aliasservice.dto.AliasDto;
 import moe.yiheng.entity.alias.Alias;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public interface AliasService {
 
     List<String> getPassedAliasStr(Integer musicId);
 
-    Set<Integer> getMusicIdsByAlias(String alias);
+    Set<AliasDto> getMusicIdsByAlias(String alias);
 
     void deleteAlias(Integer musicId, String alias);
 

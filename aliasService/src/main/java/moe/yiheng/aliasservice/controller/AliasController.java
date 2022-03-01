@@ -1,12 +1,15 @@
 package moe.yiheng.aliasservice.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
+import com.alibaba.druid.util.StringUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import moe.yiheng.aliasservice.dto.AliasDto;
 import moe.yiheng.aliasservice.service.AliasService;
 import moe.yiheng.entity.alias.Alias;
 import moe.yiheng.servicebase.Payload;
+import moe.yiheng.servicebase.exceptionhandler.MyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.*;
@@ -35,13 +38,16 @@ public class AliasController {
     @ApiOperation("添加别名，无token则将别名加入待审核列表")
     @PostMapping("{music_id}")
     public Payload<Object> addAlias(@PathVariable("music_id") Integer musicId, String alias) {
+        if (StringUtils.isEmpty(alias)) {
+            throw new MyException(400, "别名不能为空");
+        }
         String message = service.addAlias(musicId, alias);
         return Payload.success(null).message(message);
     }
 
     @ApiOperation("根据别名获取乐曲")
     @GetMapping("/query/{alias}")
-    public Payload<Set<Integer>> getMusicIdsByAlias(@PathVariable("alias") String alias) {
+    public Payload<Set<AliasDto>> getMusicIdsByAlias(@PathVariable("alias") String alias) {
         return Payload.success(service.getMusicIdsByAlias(alias));
     }
 

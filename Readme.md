@@ -420,22 +420,27 @@
 **响应参数**:
 
 
-| 参数名称 | 参数说明   | 类型           |
-| -------- | ---------- | -------------- |
-| code     |            | integer(int32) |
-| data     | 乐曲id数组 | array          |
-| message  |            | string         |
-| success  |            | boolean        |
+| 参数名称 | 参数说明 | 类型           |
+| -------- |------| -------------- |
+| code     |      | integer(int32) |
+| data     | 乐曲列表 | array          |
+| message  |      | string         |
+| success  |      | boolean        |
 
 
 **响应示例**:
 
-```javascript
+```json
 {
-  "success": true,
-  "code": 200,
-  "message": "success",
-  "data": []
+    "success": true,
+        "code": 200,
+        "message": "success",
+        "data": [
+        {
+            "musicId": 8,
+            "alias": "test"
+        }
+    ]
 }
 ```
 

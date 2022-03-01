@@ -1,6 +1,7 @@
 package moe.yiheng.aliasservice.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
+import moe.yiheng.aliasservice.dto.AliasDto;
 import moe.yiheng.aliasservice.repository.AliasRepository;
 import moe.yiheng.aliasservice.service.AliasService;
 import moe.yiheng.entity.alias.Alias;
@@ -70,13 +71,17 @@ public class AliasServiceImpl implements AliasService {
     }
 
     @Override
-    public Set<Integer> getMusicIdsByAlias(String alias) {
+    public Set<AliasDto> getMusicIdsByAlias(String alias) {
         List<Alias> aliases = repository.findAllByAliasContainingIgnoreCase(alias);
-        Set<Integer> ids = new HashSet<>();
+        Set<AliasDto> aliasDtos = new HashSet<>();
         aliases.forEach(a -> {
-            ids.add(a.getMusicId());
+            // check if exists(copilot写的)
+            boolean exists = aliasDtos.stream().anyMatch(ad -> ad.getMusicId().equals(a.getMusicId()));
+            if (!exists) {
+                aliasDtos.add(new AliasDto(a.getMusicId(), a.getAlias()));
+            }
         });
-        return ids;
+        return aliasDtos;
     }
 
     @Override
