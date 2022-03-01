@@ -413,7 +413,7 @@
 | 参数名称 | 参数说明 | 请求类型 | 是否必须 | 数据类型       |
 | -------- | -------- | -------- | -------- | -------------- |
 | music_id | music_id | path     | true     | integer(int32) |
-
+| alias | 别名 | query | true | string
 
 
 

@@ -34,7 +34,7 @@ public class AliasController {
 
     @ApiOperation("添加别名，无token则将别名加入待审核列表")
     @PostMapping("{music_id}")
-    public Payload<Object> addAlias(@PathVariable("music_id") Integer musicId, @RequestBody String alias) {
+    public Payload<Object> addAlias(@PathVariable("music_id") Integer musicId, String alias) {
         String message = service.addAlias(musicId, alias);
         return Payload.success(null).message(message);
     }
